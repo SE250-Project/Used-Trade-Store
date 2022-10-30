@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>校园二手交易平台</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
+<!--    <link rel="stylesheet" href="/css/bootstrap.min.css">-->
+<!--    <link rel="stylesheet" type="text/css" href="/css/index.css">-->
+</head>
+<body>
+    <header class="navbar1">
+        <div class="nav-info">
+            <a href="#" class="username">zepuway</a>
+            <a href="myshelf.html" class="shelf">我的</a>
+             <a href="login.html" class="logout">[ 退 出 ]</a>
+         </div> <!-- nav-info -->
+        <form class="nav-search">
+            <a href=""><img class="logo" th:src="@{/picture/logo2.png}" alt="图像"></a>
+            <div class="search-form">
+                <a href="#" class="search-logo">| &nbsp;<img th:src="@{/picture/search.png}"></a>
+                <input type="search" class="searchIn" id="inp" placeholder="搜索所需商品">
+                <div class="searchBtn" id="but" style="line-height: 40px;">搜索</div>
+            </div>
+        </form><!--  nav-search -->
+        <ul class="menu">
+            <li><a class="active" href="">首页</a></li>
+            <li><a href="NewStore.html">全新区</a></li>
+            <li><a href="ask.html">求购区</a></li>
+            <li><a href="#"></a></li>
+        </ul>
+    </header>
+
+    <!-- 轮播 -->
+    <div class="carousel">
+        <div class="book-guide">
+            <h4>商品导航</h4>
+            <ul class="book-class">
+                <li><a href="#">食品</a></li>
+                <li><a href="#">家居</a></li>
+                <li><a href="#">数码</a></li>
+                <li><a href="#">体育</a></li>
+                <li><a href="#">服装</a></li>
+                <li><a href="#">文具</a></li>
+                <li><a href="#">生鲜</a></li>
+                <li><a href="#">饮品</a></li>
+            </ul>
+        </div>
+        <div class="slider">
+            <div class="slider-img">
+                <ul class="slider-img-ul">
+                    <li><img th:src="@{/picture/5.jpg}" alt="图像"></li>
+                    <li><img th:src="@{/picture/12.jpg}" alt="图像"></li>
+                    <li><img th:src="@{/picture/21.jpg}" alt="图像"></li>
+                    <li><img th:src="@{/picture/3.png}" alt="图像"></li>
+                    <li><img th:src="@{/picture/4.jpg}" alt="图像"></li>
+                    <li><img th:src="@{/picture/5.jpg}" alt="图像"></li>
+                    <li><img th:src="@{/picture/12.jpg}" alt="图像"></li>
+                </ul>
+            </div>
+        </div><!-- 	slider -->
+    </div><!-- carousel -->
+    <div id="container">
+        <div class="book-part" id="article">
+            <h3 class="book-title"><a href="#">| 最新上架</a></h3>
+            <a class="more" href="#"> > > 更多</a>
+            <ul class="book-lists" id="xslist"></ul>
+        </div>
+    </div>
+    <div id="content" style="width:1500px;">
+        <div style="width:2000px;float:left;">
+
+                <div  style="width:2000px;font-size:16px;overflow: hidden;">
+                    <!--显示分类信息-->
+                    <div style="width:1680px;height:20px;line-height:10px;overflow: hidden;">
+                        <!--商品信息大小-->
+                        <div style="width:200px;float:right;text-align: right;">
+<!--                            <a th:href="@{/goods/goodslist/(categoryid=${categoryOne.category.categoryId})}">-->
+<!--                            </a>-->
+                        </div>
+                    </div>
+                    <!--显示分类下的商品列表信息-->
+
+                    <div style="width:1680px;height:100px;">
+                        <div th:each="ProdInfo,state:${prodInfoList}" style="width:200px;height:300px;float: left;margin-top:10px;margin-left:160px">
+
+                            <div>商品价格:<span th:text="${ProdInfo.prodId}"></span></div>
+
+
+                            <div><a th:href="@{/prodInfo/detail(prodId=${ProdInfo.prodId})}"><img  th:src="${ProdInfo.prodPicture}" style="width: 100%;"/></a></div>
+                            <div>商品名称:<span th:text="${ProdInfo.prodName}"></span></div>
+                            <div>商品价格:<span th:text="${ProdInfo.prodPrice}"></span></div>
+                            <div>用户名称:<span th:text="${ProdInfo.prodUser}"></span></div>
+                            <div>上架时间:<span th:text="${#dates.format(ProdInfo.modifiedTime,'yyyy/mm/dd')}"></span></div>
+                            <div>详细介绍:<span th:text="${ProdInfo.prodPoint}"></span></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!--main   end-->
+        </div>
+    </div>
+
+</body>
+</html>
+
