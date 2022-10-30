@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.se250.store.mapper.ProdInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.se250.store.entity.ProdInfo">
+        <!--@Table prod_info-->
+        <result property="prodId" column="prod_id" jdbcType="INTEGER"/>
+        <result property="prodName" column="prod_name" jdbcType="VARCHAR"/>
+        <result property="prodUser" column="prod_user" jdbcType="VARCHAR"/>
+        <result property="prodPrice" column="prod_price" jdbcType="INTEGER"/>
+        <result property="prodPoint" column="prod_point" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="modifiedTime" column="modified_time" jdbcType="TIMESTAMP"/>
+        <result property="prodPicture" column="prod_picture" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          prod_id, prod_name, prod_user, prod_price, prod_point, create_time, modified_time, prod_picture
+        from prod_info
+        where prod_id = #{prodId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          prod_id, prod_name, prod_user, prod_price, prod_point, create_time, modified_time, prod_picture
+        from prod_info
+        <where>
+            <if test="prodId != null">
+                and prod_id = #{prodId}
+            </if>
+            <if test="prodName != null and prodName != ''">
+                and prod_name = #{prodName}
+            </if>
+            <if test="prodUser != null and prodUser != ''">
+                and prod_user = #{prodUser}
+            </if>
+            <if test="prodPrice != null">
+                and prod_price = #{prodPrice}
+            </if>
+            <if test="prodPoint != null and prodPoint != ''">
+                and prod_point = #{prodPoint}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="modifiedTime != null">
+                and modified_time = #{modifiedTime}
+            </if>
+            <if test="prodPicture != null and prodPicture != ''">
+                and prod_picture = #{prodPicture}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <!--<select id="queryAll" resultMap="BaseResultMap">
+        select
+          prod_id, prod_name, prod_user, prod_price, prod_point, create_time, modified_time, prod_picture
+        from product home page.prod_info
+    </select>-->
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from prod_info
+        <where>
+            <if test="prodId != null">
+                and prod_id = #{prodId}
+            </if>
+            <if test="prodName != null and prodName != ''">
+                and prod_name = #{prodName}
+            </if>
+            <if test="prodUser != null and prodUser != ''">
+                and prod_user = #{prodUser}
+            </if>
+            <if test="prodPrice != null">
+                and prod_price = #{prodPrice}
+            </if>
+            <if test="prodPoint != null and prodPoint != ''">
+                and prod_point = #{prodPoint}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="modifiedTime != null">
+                and modified_time = #{modifiedTime}
+            </if>
+            <if test="prodPicture != null and prodPicture != ''">
+                and prod_picture = #{prodPicture}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="prodId" useGeneratedKeys="true">
+        insert into prod_info(prod_name, prod_user, prod_price, prod_point, create_time, modified_time, prod_picture)
+        values (#{prodName}, #{prodUser}, #{prodPrice}, #{prodPoint}, #{createTime}, #{modifiedTime}, #{prodPicture})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="prodId" useGeneratedKeys="true">
+        insert into prod_info(prod_name, prod_user, prod_price, prod_point, create_time, modified_time, prod_picture)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.prodName}, #{entity.prodUser}, #{entity.prodPrice}, #{entity.prodPoint}, #{entity.createTime}, #{entity.modifiedTime}, #{entity.prodPicture})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="prodId" useGeneratedKeys="true">
+        insert into prod_info(prod_name, prod_user, prod_price, prod_point, create_time, modified_time, prod_picture)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.prodName}, #{entity.prodUser}, #{entity.prodPrice}, #{entity.prodPoint}, #{entity.createTime}, #{entity.modifiedTime}, #{entity.prodPicture})
+        </foreach>
+        on duplicate key update
+        prod_name = values(prod_name),
+        prod_user = values(prod_user),
+        prod_price = values(prod_price),
+        prod_point = values(prod_point),
+        create_time = values(create_time),
+        modified_time = values(modified_time),
+        prod_picture = values(prod_picture)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update prod_info
+        <set>
+            <if test="prodName != null and prodName != ''">
+                prod_name = #{prodName},
+            </if>
+            <if test="prodUser != null and prodUser != ''">
+                prod_user = #{prodUser},
+            </if>
+            <if test="prodPrice != null">
+                prod_price = #{prodPrice},
+            </if>
+            <if test="prodPoint != null and prodPoint != ''">
+                prod_point = #{prodPoint},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="modifiedTime != null">
+                modified_time = #{modifiedTime},
+            </if>
+            <if test="prodPicture != null and prodPicture != ''">
+                prod_picture = #{prodPicture},
+            </if>
+        </set>
+        where prod_id = #{prodId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from prod_info where prod_id = #{prodId}
+    </delete>
+
+    <!--go-->
+    <!-- 这里需要用resultMap而不是resultType，原因不明，但是resultType会导致连接前端时会无法映射，报错500 -->
+    <select id="lists" resultMap="BaseResultMap">
+        select prod_name, prod_user, prod_price, prod_point, modified_time, prod_picture from prod_info
+
+    </select>
+
+</mapper>
+

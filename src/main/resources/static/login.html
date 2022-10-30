@@ -1,0 +1,87 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="utf-8">
+  <title>二手交易网站登录</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--导入核心文件-->
+  <script src="bootstrap3/js/holder.js"></script>
+  <link href="bootstrap3/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <script src="bootstrap3/jquery-1.9.1.min.js"></script>
+  <script src="bootstrap3/js/bootstrap.js"></script>
+  <script src="bootstrap3/js/jquery.cookie.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+<div class="dowebok" id="dowebok">
+  <div class="form-container sign-up-container">
+    <form id="form-reg" class="form-horizontal" role="form" submit="users/reg">
+      <h1>注册</h1>
+
+      <span id="info">请输入您的信息</span>
+      <input type="text" name="phone" id="regphone" autofocus=“autofocus” required=“required” placeholder="手机号"
+             onblur="validate_idcard(this.value)">
+
+      <input type="text" name="username" id="regname" required=“required” placeholder="用户名"
+             onblur="validate_username(this.value)">
+
+      <input type="password" name="password" id="regpass" required=“required” placeholder="密码"
+             onblur="validate_password(this.value)">
+      <input type="password" placeholder="请再次输入密码" id="reregpass" required=“required” onblur="validate_password2(this.value)" >
+      <button id="btn-reg">注册</button>
+    </form>
+
+
+
+  </div>
+  <div class="form-container sign-in-container">
+    <form id="form-login" class="form-horizontal" role="form">
+      <h1>登录</h1>
+
+      <span>或使用您的帐号</span>
+      <!--<input type="text" placeholder="手机号">-->
+      <input type="text" placeholder="用户名" name="username" id="name">
+      <input type="password" placeholder="密码" name="password" id="pass">
+      <table >
+        <tr>
+          <td><input type="checkbox" id="auto" name="running" checked></td>
+          <td>自动登录</td>
+        </tr>
+      </table>
+      <button type="button" id="btn-login">登录</button>
+    </form>
+  </div>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>已有帐号？</h1>
+        <p>请使用您的帐号进行登录</p>
+        <button class="ghost" id="signIn">登录</button>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1>没有帐号？</h1>
+        <p>立即注册加入我们，和我们一起开始旅程吧</p>
+        <button class="ghost" id="signUp">注册</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="js/login.js"></script>
+</body>
+
+<script>
+  var signUpButton = document.getElementById('signUp')
+  var signInButton = document.getElementById('signIn')
+  var container = document.getElementById('dowebok')
+
+  signUpButton.addEventListener('click', function() {
+    container.classList.add('right-panel-active')
+  })
+
+  signInButton.addEventListener('click', function() {
+    container.classList.remove('right-panel-active')
+  })
+</script>
+</html>

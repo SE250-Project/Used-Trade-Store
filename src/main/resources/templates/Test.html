@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>测试thymeleaf</title>
+</head>
+<body>
+    <h1>测试</h1>
+    <table>
+        <tr th:each="ProdInfo,state:${prodInfoList}" class="row1">
+            <td>
+                <span th:text="${#dates.format(ProdInfo.modifiedTime,'yyyy/mm/dd')}"></span>
+            </td>
+            <td>
+                <span th:text="${ProdInfo.prodUser}"></span>
+            </td>
+            <td>
+                <span th:text="${ProdInfo.prodPrice}"></span>
+            </td>
+            <td>
+                <span th:text="${ProdInfo.prodPoint}"></span>
+            </td>
+            <td>
+                <span th:text="${ProdInfo.prodName}"></span>
+            </td>
+            <td>
+                <span th:text="${ProdInfo.prodPicture}"></span>
+            </td>
+
+        </tr>
+    </table>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <form action="/users/reg">
+      <h1>注册</h1>
+
+      <span id="info">请输入您的信息</span>
+      <input type="text" name="phone" id="regphone" autofocus=“autofocus” required=“required” placeholder="手机号"
+             onblur="validate_idcard(this.value)">
+
+      <input type="text" name="username" id="regname" required=“required” placeholder="用户名"
+             onblur="validate_username(this.value)">
+
+      <input type="password" name="password" id="regpass" required=“required” placeholder="密码：以字母开头只能包含字母、数字和下划线"
+             onblur="validate_password(this.value)">
+      <input type="password" name="reregpass" id="reregpass" required=“required” onblur="validate_password2(this.value)" placeholder="确认密码">
+      <button>注册</button>
+  </form>
+  <script src="./">
+    function validate_idcard(idcard) {
+      var idcardReg = /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+
+      if (idcard != "" && idcard.search(idcardReg) != -1) {
+        //document.getElementById("info").innerHTML = "<font color='green' size='3px'>手机号格式正确</font>";
+        document.getElementById("info").innerHTML = "手机号格式正确";
+        console.log("密码由数字和字母组成!")
+      }else {
+        document.getElementById("info").innerHTML = "<font color='red' size='3px'>手机号不能为空</font>";
+      }
+
+    }
+  </script>
+</body>
+</html>
